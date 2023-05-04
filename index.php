@@ -52,6 +52,13 @@ $hotels = [
 
 <body>
 
+    <div>
+        <?php foreach ($hotels as $hotel) {
+            var_dump($hotel);
+        }
+        ?>
+    </div>
+
 </body>
 
 </html>
