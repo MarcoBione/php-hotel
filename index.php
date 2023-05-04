@@ -38,6 +38,12 @@ $hotels = [
     ],
 
 ];
+
+$hotelsListFiltered = [];
+
+$selected = $_GET['value'];
+echo $selected;
+
 ?>
 
 <!DOCTYPE html>
@@ -62,45 +68,63 @@ $hotels = [
         ?>
     </div> -->
 
+
+    <section class="container">
+
+        <form class="row" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="GET">
+
+            <select class="form-select" aria-label="Default select example" name="value">
+                <option value="all" selected>Tutti</option>
+                <option value="parking">Parcheggio</option>
+            </select>
+
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">Cerca..</button>
+            </div>
+        </form>
+
+    </section>
+
     <!-- table -->
-    <div class="container py-5">
-
-        <table class="table table-striped">
-            <!-- category titles -->
-            <thead>
-                <tr>
-                    <th scope="col">Hotel</th>
-                    <th scope="col">Descrizione</th>
-                    <th scope="col">Parcheggio</th>
-                    <th scope="col">Voto</th>
-                    <th scope="col">Distanza dal centro</th>
-                </tr>
-            </thead>
-
-            <tbody class="table-group-divider">
-                <!-- cicle stamp -->
-                <?php foreach ($hotels as $hotel) { ?>
-
+    <section>
+        <div class="container py-5">
+            <table class="table table-striped">
+                <!-- category titles -->
+                <thead>
                     <tr>
-                        <td><?php echo $hotel['name'] ?></td>
-                        <td><?php echo $hotel['description'] ?></td>
-                        <td><?php
-                            if ($hotel['parking']) {
-                                echo 'Sì';
-                            } else {
-                                echo 'No';
-                            } ?>
-                        </td>
-                        <td><?php echo $hotel['vote'] ?></td>
-                        <td><?php echo $hotel['distance_to_center'] ?> km</td>
+                        <th scope="col">Hotel</th>
+                        <th scope="col">Descrizione</th>
+                        <th scope="col">Parcheggio</th>
+                        <th scope="col">Voto</th>
+                        <th scope="col">Distanza dal centro</th>
                     </tr>
+                </thead>
 
-                <?php } ?>
-                <!-- end cicle stamp -->
-            </tbody>
+                <tbody class="table-group-divider">
+                    <!-- cicle stamp -->
+                    <?php foreach ($hotels as $hotel) { ?>
 
-        </table>
-    </div>
+                        <tr>
+                            <td><?php echo $hotel['name'] ?></td>
+                            <td><?php echo $hotel['description'] ?></td>
+                            <td><?php
+                                if ($hotel['parking']) {
+                                    echo 'Sì';
+                                } else {
+                                    echo 'No';
+                                } ?>
+                            </td>
+                            <td><?php echo $hotel['vote'] ?></td>
+                            <td><?php echo $hotel['distance_to_center'] ?> km</td>
+                        </tr>
+
+                    <?php } ?>
+                    <!-- end cicle stamp -->
+                </tbody>
+
+            </table>
+        </div>
+    </section>
     <!-- end table -->
 
 
