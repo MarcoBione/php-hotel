@@ -39,10 +39,23 @@ $hotels = [
 
 ];
 
-$hotelsListFiltered = [];
+$hotelsListFiltered = $hotels;
+$tempHotels=[];
 
-$selected = $_GET['value'];
-echo $selected;
+if(!empty($_GET['parking'])){ //verifica presenza valore nel filtro
+
+    $parking = (($_GET['parking'] == 'si') ? true : false);
+    foreach ($hotels as $hotel) {
+
+        if($hotel[$_GET['parking']] === $parking){
+            $tempHotels[]= $hotel;
+        }
+    }
+    $hotelsListFiltered= $tempHotels;
+
+}
+
+
 
 ?>
 
@@ -73,14 +86,16 @@ echo $selected;
 
         <form class="row" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="GET">
 
-            <select class="form-select" aria-label="Default select example" name="value">
-                <option value="all" selected>Tutti</option>
-                <option value="parking">Parcheggio</option>
+            <select class="form-select" aria-label="Default select example" name="parking">
+                <option value="">Tutti</option>
+                <option value="si">Parcheggio</option>
+                <option value="no">No Parcheggio</option>
             </select>
 
             <div class="col-auto">
                 <button type="submit" class="btn btn-primary">Cerca..</button>
             </div>
+
         </form>
 
     </section>
@@ -102,7 +117,7 @@ echo $selected;
 
                 <tbody class="table-group-divider">
                     <!-- cicle stamp -->
-                    <?php foreach ($hotels as $hotel) { ?>
+                    <?php foreach ($hotelsListFiltered as $hotel) { ?>
 
                         <tr>
                             <td><?php echo $hotel['name'] ?></td>
